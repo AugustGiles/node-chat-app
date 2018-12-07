@@ -4,7 +4,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
-const { generateMessage } = require('./utils/message')
+const { generateMessage, generateLocationMessage } = require('./utils/message')
 
 
 // path is a native node api that condenses paths
@@ -37,6 +37,10 @@ io.on('connection', (socket) => {
     // acknowledgement from server to client that it received the data
     callback('This is from the server');
   });
+
+  socket.on('createLocationMessage', (coords) => {
+    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude))
+  })
 
   socket.on('disconnect', () => {
     console.log('user was disconnected')
