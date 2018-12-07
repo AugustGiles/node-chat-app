@@ -30,7 +30,6 @@ io.on('connection', (socket) => {
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user has joined the chat'));
 
   socket.on('createMessage', (message, callback) => {
-    console.log('Created Message:', message)
     // io.emit sends message to every connection
     // socket.emit sends message to a single connection
     io.emit('newMessage', generateMessage(message.from, message.text));
