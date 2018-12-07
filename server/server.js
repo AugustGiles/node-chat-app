@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
     // socket.emit sends message to a single connection
     io.emit('newMessage', generateMessage(message.from, message.text));
     // acknowledgement from server to client that it received the data
-    callback('This is from the server');
+    callback();
   });
 
   socket.on('createLocationMessage', (coords) => {
