@@ -29,12 +29,13 @@ io.on('connection', (socket) => {
   // broadcast sends messages to everyone but the current socket
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user has joined the chat'));
 
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log('Created Message:', message)
     // io.emit sends message to every connection
     // socket.emit sends message to a single connection
-
     io.emit('newMessage', generateMessage(message.from, message.text));
+    // acknowledgement from server to client that it received the data
+    callback('This is from the server');
   });
 
   socket.on('disconnect', () => {
